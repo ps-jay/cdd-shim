@@ -3,6 +3,7 @@
 import argparse
 import os
 import requests
+import sys
 import time
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
@@ -19,6 +20,8 @@ class CDDShim(BaseHTTPRequestHandler):
             '/dl_update_cdd.php': self.IPUPGRADE,
             '/dl_update_file_cdd.php': self.IPUPGRADE,
             '/dl_parameters_file.php': self.IPPORTAL,
+            '/dl_parameters_alarms_file.php': self.IPPORTAL,
+            '/topic_update.php': self.IPPORTAL,
         }
         self.ARGS = server.cmd_args
 
@@ -31,6 +34,7 @@ class CDDShim(BaseHTTPRequestHandler):
             time.strftime("%Y-%m-%d %H:%M:%S"),
             message,
         )
+        sys.stdout.flush()
 
     def debug(self, message):
         if self.ARGS.debug:
